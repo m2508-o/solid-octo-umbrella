@@ -1,0 +1,35 @@
+﻿version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"  # Mapowanie portu: Port lokalny 3000 mapowany na port 80 w kontenerze
+    depends_on:
+      - backend  # Zależność od usługi backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Mapowanie portu: Port lokalny 5000 mapowany na port 5000 w kontenerze
+    environment:
+      - MONGO_URI=mongodb://admin:1234@cluster0.zyw0jv5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      # Zmienna środowiskowa MONGO_URI z adresem MongoDB
+    depends_on:
+      - mongodb  # Zależność od usługi MongoDB
+
+  mongodb:
+    image: mongo:latest
+    # Używanie najnowszego obrazu MongoDB
+    ports:
+      - "27017:27017"  # Mapowanie portu: Port lokalny 27017 mapowany na port 27017 w kontenerze
+    volumes:
+      - mongo-data:/data/db  # Montowanie wolumenu dla danych MongoDB
+    command: ["--replSet", "rs0", "--noauth"]  # Konfiguracja repliki MongoDB
+
+volumes:
+  mongo-data:  # Definicja wolumenu mongo-data

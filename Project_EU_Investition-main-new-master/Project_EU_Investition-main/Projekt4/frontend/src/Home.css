@@ -1,0 +1,32 @@
+@import 'animate.css';
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+    li svg {
+        margin-right: 0.5rem;
+    }
+
+.display-4 {
+    font-weight: 700;
+    color: #007bff;
+}
+
+h3 {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.card-body {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 10px;
+}
